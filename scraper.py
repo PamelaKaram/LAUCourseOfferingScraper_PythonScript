@@ -2,6 +2,7 @@ import sys
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 
 
 
@@ -35,3 +36,20 @@ driver.find_element("xpath", '//a[@class="static menu-item" and @href="/sites/co
 driver.find_element("xpath", '//a[@href="https://banweb.lau.edu.lb/prod/twbkwbis.P_GenMenu?name=bmenu.P_RegMnu"]')\
        .send_keys(Keys.ENTER)
 
+# Switch to the new window
+handles = driver.window_handles
+new_win_handle = handles[-1]
+driver.switch_to.window(new_win_handle)
+
+# Go to class lookup page
+driver.find_element("xpath", '//a[contains(text(), "Look-up Classes to Add")]')\
+       .send_keys(Keys.ENTER)
+
+# Select term from dropdown
+select_element = driver.find_element("id", "term_input_id")
+select = Select(select_element)
+select.select_by_value("202410")
+
+# Submit form
+driver.find_element("xpath", "//input[@type='submit' and @value='Submit']")\
+       .send_keys(Keys.ENTER)
