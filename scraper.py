@@ -27,4 +27,8 @@ driver.find_element("name", "username").send_keys(username)
 driver.find_element("name", "password").send_keys(password)
 driver.find_element("xpath", "//input[@type='submit' and @value='Log In']").send_keys(Keys.ENTER)
 
+# Go to courses page
+driver.find_element("xpath", '//a[@class="static menu-item" and @href="/sites/courses"]')\
+    .send_keys(Keys.ENTER)
+
 
