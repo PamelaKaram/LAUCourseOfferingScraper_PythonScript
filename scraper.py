@@ -31,4 +31,7 @@ driver.find_element("xpath", "//input[@type='submit' and @value='Log In']").send
 driver.find_element("xpath", '//a[@class="static menu-item" and @href="/sites/courses"]')\
     .send_keys(Keys.ENTER)
 
+# Go to registration page
+driver.find_element("xpath", '//a[@href="https://banweb.lau.edu.lb/prod/twbkwbis.P_GenMenu?name=bmenu.P_RegMnu"]')\
+       .send_keys(Keys.ENTER)
 
