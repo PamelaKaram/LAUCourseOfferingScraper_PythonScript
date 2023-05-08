@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-
+import time 
 
 
 if len(sys.argv) < 3:
@@ -53,3 +53,22 @@ select.select_by_value("202410")
 # Submit form
 driver.find_element("xpath", "//input[@type='submit' and @value='Submit']")\
        .send_keys(Keys.ENTER)
+
+
+driver.find_element("xpath", "//input[@type='submit' and @value='Advanced Search']").send_keys(Keys.ENTER)
+
+subject_element = driver.find_element("id", "subj_id")
+
+subject = Select(subject_element)
+
+subject.select_by_value("CSC")
+
+campus_element = driver.find_element("id", "camp_id")
+
+campus = Select(campus_element)
+
+campus.select_by_value("2")
+
+driver.find_element("xpath", "//input[@type='submit' and @value='Section Search']").send_keys(Keys.ENTER)
+
+time.sleep(10)
