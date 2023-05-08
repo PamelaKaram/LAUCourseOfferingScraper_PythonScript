@@ -3,8 +3,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-import time 
-
+from selenium.webdriver.common.by import By
+import time
+import csv
 
 if len(sys.argv) < 3:
     print("Please provide both username and password as command-line arguments")
@@ -71,4 +72,28 @@ campus.select_by_value("2")
 
 driver.find_element("xpath", "//input[@type='submit' and @value='Section Search']").send_keys(Keys.ENTER)
 
-time.sleep(10)
+# Extract the data from the table and write it to a CSV file
+with open('output.csv', 'w', newline='', encoding='utf-8') as f:
+    w = csv.writer(f)
+
+    head = ['Select', 'CRN', 'Course', 'Course number', 'section', 'campus', 'credits', 'Title', 'Days', 'Time', 'Cap', 'Act', 'Rem', 'WL Cap', 'WL Act', 'WL Rem', 'XL Cap', 'XL Act', 'XL Rem', 'Instructor', 'Date', 'Location', 'Attribute']
+    w.writerow(head)
+    table = driver.find_element(By.XPATH, "//table[@class='datadisplaytable']")
+    rows = table.find_elements(By.XPATH, "//tr")[1:] 
+    # Loop through each row and extract the data
+    count = 7
+    for row in rows:
+        if count == 0:
+            cols = row.find_elements(By.XPATH, "./td")
+            row_data = []
+            for column in cols:
+                row_data.append(column.text.strip()+"\t")
+            if len(row_data) > 0:
+                w.writerow(row_data)
+        else:
+            count-=1
+
+
+driver.close()
+
+time.sleep(5)
