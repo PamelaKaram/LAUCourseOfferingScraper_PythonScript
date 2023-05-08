@@ -17,11 +17,11 @@ password = sys.argv[2]
 service = Service(executable_path="../chromedriver.exe")
 
 # Set binary location for Chrome
-chr_options = webdriver.ChromeOptions()
-chr_options.binary_location = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+options = webdriver.ChromeOptions()
+options.binary_location = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
 
 # Go to website
-driver = webdriver.Chrome(executable_path="../chromedriver.exe", chrome_options=chr_options)
+driver = webdriver.Chrome(service=service, options=options)
 driver.get("https://myportal.lau.edu.lb/")
 #enter username and password and click enter
 driver.find_element("name", "username").send_keys(username)  
